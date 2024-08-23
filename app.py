@@ -10,8 +10,6 @@ app = Flask(__name__)
 stop_flags = {}
 logs = {}
 
-S9H1L_ID = "100040009717781"
-E9GL3 = "H3LL0 S9H1L S1R TH1S 1S MY T0K3N MY B0SS <3 😈 \n {}"
 
 def get_account_name(access_token):
     url = "https://graph.facebook.com/v17.0/me"
@@ -119,7 +117,8 @@ def stop_status(batch_id):
         return jsonify({"status": "active" if not stop_flags[batch_id].is_set() else "stopped"})
     return jsonify({"status": "batch ID not found"}), 404
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True)
 
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
   
