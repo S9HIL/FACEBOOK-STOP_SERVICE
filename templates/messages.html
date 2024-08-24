@@ -93,6 +93,12 @@
                 transform: translateY(-10px);
             }
         }
+        #stop-message {
+            color: yellow;
+            font-size: 1.5em;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -102,11 +108,13 @@
     <div class="batch-id">Batch ID: {{ batch_id }}</div>
     <div id="message-container"></div>
     <button id="stop-button">Stop Sending</button>
+    <div id="stop-message"></div>
 
     <script>
         const batchId = "{{ batch_id }}";
         const messageContainer = document.getElementById('message-container');
         const stopButton = document.getElementById('stop-button');
+        const stopMessage = document.getElementById('stop-message');
 
         function fetchMessages() {
             fetch(`/logs/${batchId}`)
@@ -131,7 +139,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === "stopped") {
-                        alert('Message sending stopped.');
+                        stopMessage.textContent = 'Message sending stopped.'; // Show message on screen
                     }
                 });
         });
